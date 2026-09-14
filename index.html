@@ -115,6 +115,18 @@
     font-size:1.35rem;font-weight:700;letter-spacing:0.02em;
   }
   .brand .zone{color:var(--red);}
+  .brand-logo{
+    height:46px;
+    width:auto;
+    object-fit:contain;
+    display:block;
+    border-radius:4px;
+    transition:transform .2s ease, opacity .2s ease;
+  }
+  .brand:hover .brand-logo{
+    transform:scale(1.03);
+    opacity:0.95;
+  }
   .navlinks{display:flex;gap:34px;font-family:'Rajdhani',sans-serif;font-weight:600;font-size:0.95rem;letter-spacing:0.04em;text-transform:uppercase;}
   .navlinks a{position:relative;padding:4px 0;color:var(--white-dim);transition:color .2s;}
   .navlinks a:hover{color:var(--white);}
@@ -383,6 +395,7 @@
     .nav-cta{gap:8px;}
     .nav-cta .btn{padding:9px 14px;font-size:0.82rem;}
     .brand{font-size:1.02rem;}
+    .brand-logo{height:36px;}
   }
 </style>
 </head>
@@ -390,7 +403,9 @@
 
 <header>
   <div class="nav">
-    <a href="#top" class="brand"><span>ELETRO</span><span class="zone">ZONE</span></a>
+    <a href="#top" class="brand" aria-label="Eletrozone - Início">
+      <img src="logo.png" alt="Eletrozone - Segurança Eletrônica" class="brand-logo">
+    </a>
     <nav class="navlinks" id="navlinks">
       <a href="#informatica">Informática</a>
       <a href="#ti">Soluções T.I.</a>
