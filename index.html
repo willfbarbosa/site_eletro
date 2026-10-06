@@ -252,6 +252,31 @@
   .service{
     background:var(--black-2);
     padding:44px 40px;
+    cursor:pointer;
+    position:relative;
+    transition:transform .25s ease, background .25s ease, border-color .25s ease, box-shadow .25s ease;
+  }
+  .service:hover{
+    background:#161616;
+    transform:translateY(-3px);
+    box-shadow:0 12px 30px rgba(0,0,0,0.6), 0 0 20px rgba(230,17,31,0.18);
+  }
+  .service::after{
+    content:"Clique para ver fotos e detalhes ↗";
+    display:block;
+    margin-top:20px;
+    font-family:'Rajdhani',sans-serif;
+    font-size:0.82rem;
+    font-weight:700;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--red);
+    opacity:0.8;
+    transition:opacity .2s ease, transform .2s ease;
+  }
+  .service:hover::after{
+    opacity:1;
+    transform:translateX(4px);
   }
   .service-top{display:flex;align-items:flex-start;gap:18px;margin-bottom:22px;}
   .service-icon{
@@ -283,6 +308,178 @@
     width:2px;height:2px;
     background:var(--red);
     border-radius:50%;
+  }
+
+  /* ---------- Service Modal ---------- */
+  body.modal-open {
+    overflow: hidden;
+  }
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  .modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  .modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(8, 8, 8, 0.88);
+    backdrop-filter: blur(10px);
+  }
+  .modal-content {
+    position: relative;
+    z-index: 2;
+    background: var(--black-2);
+    border: 1px solid var(--red);
+    width: 100%;
+    max-width: 780px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 36px 32px;
+    border-radius: var(--radius);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 35px rgba(230,17,31,0.25);
+    transform: scale(0.94) translateY(15px);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .modal-overlay.active .modal-content {
+    transform: scale(1) translateY(0);
+  }
+  .modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--line);
+    color: var(--white-dim);
+    font-size: 1.8rem;
+    line-height: 1;
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+  .modal-close:hover {
+    color: var(--white);
+    border-color: var(--red);
+    background: var(--red);
+  }
+  .modal-header {
+    margin-bottom: 22px;
+    padding-right: 40px;
+  }
+  .modal-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 6px;
+  }
+  .modal-icon {
+    font-size: 2.2rem;
+    width: 52px;
+    height: 52px;
+    border: 1px solid var(--red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(230, 17, 31, 0.08);
+    flex: none;
+  }
+  .modal-header h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .modal-img-container {
+    width: 100%;
+    max-height: 380px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--black);
+    position: relative;
+    border-radius: var(--radius);
+  }
+  .modal-img {
+    width: 100%;
+    height: 100%;
+    max-height: 380px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .modal-img-container:hover .modal-img {
+    transform: scale(1.02);
+  }
+  .modal-desc {
+    color: var(--white-dim);
+    font-size: 1.02rem;
+    line-height: 1.65;
+  }
+  .modal-features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 6px;
+  }
+  .modal-features-list li {
+    position: relative;
+    padding-left: 28px;
+    color: var(--white);
+    font-size: 0.98rem;
+    line-height: 1.5;
+  }
+  .modal-features-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 7px;
+    width: 10px;
+    height: 10px;
+    border: 1.5px solid var(--red);
+    border-radius: 50%;
+  }
+  .modal-features-list li::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 11px;
+    width: 2px;
+    height: 2px;
+    background: var(--red);
+    border-radius: 50%;
+  }
+  .modal-footer {
+    display: flex;
+    gap: 14px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    flex-wrap: wrap;
+  }
+  @media (max-width: 600px) {
+    .modal-content { padding: 26px 20px; }
+    .modal-header h3 { font-size: 1.4rem; }
+    .modal-img-container { max-height: 230px; }
+    .modal-footer { flex-direction: column; }
+    .modal-footer .btn { width: 100%; justify-content: center; }
   }
 
   /* ---------- process / why strip ---------- */
@@ -518,7 +715,7 @@
     </div>
     <div class="wrap">
       <div class="services">
-        <div class="service bracket">
+        <div class="service bracket" data-service="manutencao" tabindex="0" role="button" aria-label="Ver detalhes de Computadores e manutenção">
           <span class="bk-tr"></span><span class="bk-bl"></span>
           <div class="service-top">
             <div class="service-icon">🖥️</div>
@@ -529,7 +726,7 @@
             <li>Diagnóstico e reparo de hardware e software</li>
           </ul>
         </div>
-        <div class="service bracket">
+        <div class="service bracket" data-service="servidores" tabindex="0" role="button" aria-label="Ver detalhes de Servidores">
           <span class="bk-tr"></span><span class="bk-bl"></span>
           <div class="service-top">
             <div class="service-icon">🗄️</div>
@@ -540,7 +737,7 @@
             <li>Monitoramento e prevenção de falhas</li>
           </ul>
         </div>
-        <div class="service bracket">
+        <div class="service bracket" data-service="cloud" tabindex="0" role="button" aria-label="Ver detalhes de Cloud Computing">
           <span class="bk-tr"></span><span class="bk-bl"></span>
           <div class="service-top">
             <div class="service-icon">☁️</div>
@@ -551,7 +748,7 @@
             <li>Migração e backup seguro na nuvem</li>
           </ul>
         </div>
-        <div class="service bracket">
+        <div class="service bracket" data-service="redes" tabindex="0" role="button" aria-label="Ver detalhes de Infraestrutura de redes">
           <span class="bk-tr"></span><span class="bk-bl"></span>
           <div class="service-top">
             <div class="service-icon">📡</div>
@@ -579,7 +776,7 @@
     </div>
     <div class="wrap">
       <div class="services">
-        <div class="service bracket">
+        <div class="service bracket" data-service="sites" tabindex="0" role="button" aria-label="Ver detalhes de Sites profissionais">
           <span class="bk-tr"></span><span class="bk-bl"></span>
           <div class="service-top">
             <div class="service-icon">🌐</div>
@@ -590,7 +787,7 @@
             <li>Design responsivo e otimizado</li>
           </ul>
         </div>
-        <div class="service bracket">
+        <div class="service bracket" data-service="ecommerce" tabindex="0" role="button" aria-label="Ver detalhes de Lojas virtuais">
           <span class="bk-tr"></span><span class="bk-bl"></span>
           <div class="service-top">
             <div class="service-icon">🛒</div>
@@ -601,7 +798,7 @@
             <li>Integração com meios de pagamento</li>
           </ul>
         </div>
-        <div class="service bracket">
+        <div class="service bracket" data-service="botwhatsapp" tabindex="0" role="button" aria-label="Ver detalhes de Bots para WhatsApp">
           <span class="bk-tr"></span><span class="bk-bl"></span>
           <div class="service-top">
             <div class="service-icon">🤖</div>
@@ -612,7 +809,7 @@
             <li>Automação de processos digitais</li>
           </ul>
         </div>
-        <div class="service bracket">
+        <div class="service bracket" data-service="sistemas" tabindex="0" role="button" aria-label="Ver detalhes de Sistemas sob medida">
           <span class="bk-tr"></span><span class="bk-bl"></span>
           <div class="service-top">
             <div class="service-icon">⚙️</div>
@@ -640,7 +837,7 @@
     </div>
     <div class="wrap">
       <div class="services services-3">
-        <div class="service bracket">
+        <div class="service bracket" data-service="cameras" tabindex="0" role="button" aria-label="Ver detalhes de Câmeras analógicas e IP">
           <span class="bk-tr"></span><span class="bk-bl"></span>
           <div class="service-top">
             <div class="service-icon">📷</div>
@@ -650,7 +847,7 @@
             <li>Instalação de sistemas de câmeras analógicas e IP</li>
           </ul>
         </div>
-        <div class="service bracket">
+        <div class="service bracket" data-service="alarmes" tabindex="0" role="button" aria-label="Ver detalhes de Alarmes e incêndio">
           <span class="bk-tr"></span><span class="bk-bl"></span>
           <div class="service-top">
             <div class="service-icon">🚨</div>
@@ -660,7 +857,7 @@
             <li>Alarmes e sistemas de detecção de incêndio para residências e empresas</li>
           </ul>
         </div>
-        <div class="service bracket">
+        <div class="service bracket" data-service="acesso" tabindex="0" role="button" aria-label="Ver detalhes de Controle de acesso">
           <span class="bk-tr"></span><span class="bk-bl"></span>
           <div class="service-top">
             <div class="service-icon">🔐</div>
@@ -687,7 +884,7 @@
     </div>
     <div class="wrap">
       <div class="services services-2">
-        <div class="service bracket">
+        <div class="service bracket" data-service="portoes" tabindex="0" role="button" aria-label="Ver detalhes de Portões basculantes e deslizantes">
           <span class="bk-tr"></span><span class="bk-bl"></span>
           <div class="service-top">
             <div class="service-icon">🚧</div>
@@ -697,7 +894,7 @@
             <li>Automação de portões basculantes e deslizantes</li>
           </ul>
         </div>
-        <div class="service bracket">
+        <div class="service bracket" data-service="portas" tabindex="0" role="button" aria-label="Ver detalhes de Portas residenciais e comerciais">
           <span class="bk-tr"></span><span class="bk-bl"></span>
           <div class="service-top">
             <div class="service-icon">🏠</div>
@@ -849,6 +1046,37 @@
   </div>
 </footer>
 
+<!-- SERVICE MODAL -->
+<div id="serviceModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
+  <div class="modal-backdrop"></div>
+  <div class="modal-content bracket">
+    <span class="bk-tr"></span><span class="bk-bl"></span>
+    <button class="modal-close" id="modalClose" aria-label="Fechar janela">&times;</button>
+    <div class="modal-header">
+      <span class="eyebrow" id="modalEyebrow">SERVIÇO ESPECIALIZADO</span>
+      <div class="modal-title-wrap">
+        <span class="modal-icon" id="modalIcon">🖥️</span>
+        <h3 id="modalTitle">Título do Serviço</h3>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-img-container reticle">
+        <img id="modalImage" src="" alt="" class="modal-img">
+      </div>
+      <div class="modal-text">
+        <p id="modalDescription" class="modal-desc"></p>
+        <ul id="modalFeatures" class="modal-features-list"></ul>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a id="modalWhatsappBtn" href="#" target="_blank" rel="noopener" class="btn">
+        Solicitar orçamento no WhatsApp
+      </a>
+      <button type="button" class="btn btn-ghost" id="modalCloseBtn">Fechar</button>
+    </div>
+  </div>
+</div>
+
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
   const burger = document.getElementById('burger');
@@ -869,6 +1097,288 @@
     const mensagem = document.getElementById('mensagem').value;
     const texto = encodeURIComponent(`Olá! Meu nome é ${nome}. Tenho interesse em: ${servico}. ${mensagem}`);
     window.open(`https://wa.me/5519981389982?text=${texto}`, '_blank');
+  });
+
+  /* Modal Data & Behavior */
+  const servicesData = {
+    manutencao: {
+      title: "Computadores e Manutenção",
+      eyebrow: "INFORMÁTICA & HARDWARE",
+      icon: "🖥️",
+      image: "assets/computadores_manutencao.jpg",
+      alt: "Manutenção e assistência técnica de computadores Eletrozone",
+      description: "Prestamos assistência técnica completa e especializada para desktops, notebooks e workstations corporativas. Realizamos diagnósticos minuciosos de hardware e software, substituição de peças, montagem de alta performance e higienização interna.",
+      features: [
+        "Manutenção preventiva e corretiva de computadores e notebooks",
+        "Diagnóstico avançado de falhas em hardware e sistema operacional",
+        "Upgrade de componentes (SSDs NVMe, memória RAM, placas de vídeo)",
+        "Remoção profunda de vírus, malwares e otimização de velocidade",
+        "Venda e montagem de computadores corporativos e de alta performance"
+      ],
+      whatsappMsg: "Olá! Vim pelo site e gostaria de solicitar um orçamento para Computadores e Manutenção."
+    },
+    servidores: {
+      title: "Servidores",
+      eyebrow: "INFRAESTRUTURA & DATACENTER",
+      icon: "🗄️",
+      image: "assets/servidores_datacenter.jpg",
+      alt: "Manutenção em datacenter e servidores Eletrozone",
+      description: "Suporte e implementação de servidores de alta disponibilidade (Windows Server e Linux). Garantimos continuidade de negócios, virtualização segura com zero downtime e gestão centralizada de acessos e backups.",
+      features: [
+        "Instalação, configuração e manutenção de servidores físicos e virtuais",
+        "Monitoramento proativo de saúde do hardware, discos e temperatura",
+        "Gerenciamento de Active Directory (AD), políticas (GPO) e permissões",
+        "Rotinas automatizadas de backup local e espelhamento redundante",
+        "Virtualização corporativa (Hyper-V, VMware ESXi)"
+      ],
+      whatsappMsg: "Olá! Vim pelo site e gostaria de solicitar um orçamento para Servidores."
+    },
+    cloud: {
+      title: "Cloud Computing",
+      eyebrow: "SOLUÇÕES EM NUVEM",
+      icon: "☁️",
+      image: "assets/cloud_computing.jpg",
+      alt: "Infraestrutura de Cloud Computing Eletrozone",
+      description: "Conecte sua empresa ao futuro com soluções em nuvem flexíveis, seguras e de alta performance. Reduza custos de infraestrutura física e proporcione acesso remoto ágil para sua equipe de qualquer lugar.",
+      features: [
+        "Migração segura e planejada de servidores e dados para a nuvem",
+        "Implementação de servidores virtuais (Cloud VPS / Dedicated) sob medida",
+        "Backup criptografado em nuvem com retenção configurável",
+        "Integração e gerenciamento Microsoft 365 e Google Workspace",
+        "Planos de continuidade e recuperação de desastres (Disaster Recovery)"
+      ],
+      whatsappMsg: "Olá! Vim pelo site e gostaria de solicitar um orçamento para Cloud Computing."
+    },
+    redes: {
+      title: "Infraestrutura de Redes",
+      eyebrow: "CABEAMENTO E CONECTIVIDADE",
+      icon: "📡",
+      image: "assets/infraestrutura_redes.jpg",
+      alt: "Cabeamento estruturado e infraestrutura de rede Eletrozone",
+      description: "Projetamos e executamos infraestruturas de rede estruturada de alta velocidade e confiabilidade. Cabeamento certificado Cat6/Cat6A, organização de racks e redes Wi-Fi empresariais de alta densidade.",
+      features: [
+        "Cabeamento estruturado de dados e voz (Cat6, Cat6A e Fibra Óptica)",
+        "Organização, conectorização e identificação de Racks e Patch Panels",
+        "Instalação e gerenciamento de Switches Gerenciáveis, VLANs e Roteadores",
+        "Dimensionamento e otimização de Redes Wi-Fi Corporativas (Mesh / APs)",
+        "Certificação de pontos de rede e solução de gargalos de comunicação"
+      ],
+      whatsappMsg: "Olá! Vim pelo site e gostaria de solicitar um orçamento para Infraestrutura de Redes."
+    },
+    sites: {
+      title: "Sites Profissionais",
+      eyebrow: "SOLUÇÕES T.I.",
+      icon: "🌐",
+      image: "",
+      alt: "Sites Profissionais",
+      description: "Desenvolvimento de websites modernos, rápidos e totalmente responsivos para destacar sua empresa no mercado digital e atrair novos clientes.",
+      features: [
+        "Design exclusivo adaptado à identidade visual da sua empresa",
+        "Otimização SEO para destaque nos mecanismos de busca (Google)",
+        "Integração com WhatsApp, formulários de contato e redes sociais",
+        "Alta velocidade de carregamento em dispositivos móveis e desktops"
+      ],
+      whatsappMsg: "Olá! Vim pelo site e gostaria de um orçamento para Sites Profissionais."
+    },
+    ecommerce: {
+      title: "Lojas Virtuais",
+      eyebrow: "SOLUÇÕES T.I.",
+      icon: "🛒",
+      image: "",
+      alt: "Lojas Virtuais",
+      description: "Criação de e-commerces completos para sua empresa vender 24 horas por dia com segurança e facilidade de gestão.",
+      features: [
+        "Integração com gateways de pagamento (Pix, Cartão, Boleto)",
+        "Cálculo automático de frete e envio",
+        "Painel administrativo intuitivo para gestão de produtos e estoque",
+        "Design otimizado para conversão de vendas"
+      ],
+      whatsappMsg: "Olá! Vim pelo site e gostaria de um orçamento para Loja Virtual."
+    },
+    botwhatsapp: {
+      title: "Bots para WhatsApp",
+      eyebrow: "AUTOMAÇÃO DIGITAL",
+      icon: "🤖",
+      image: "",
+      alt: "Bots para WhatsApp",
+      description: "Automatize seu atendimento no WhatsApp com robôs inteligentes capazes de responder dúvidas frequentes, triar clientes e agilizar vendas.",
+      features: [
+        "Atendimento automático 24/7 sem fila de espera",
+        "Menu interativo de opções e envio de catálogo",
+        "Encaminhamento inteligente para atendentes humanos",
+        "Integração com sistemas e bancos de dados"
+      ],
+      whatsappMsg: "Olá! Vim pelo site e gostaria de um orçamento para Bot de WhatsApp."
+    },
+    sistemas: {
+      title: "Sistemas Sob Medida",
+      eyebrow: "DESENVOLVIMENTO",
+      icon: "⚙️",
+      image: "",
+      alt: "Sistemas Sob Medida",
+      description: "Desenvolvimento de softwares e plataformas personalizadas para atender os processos específicos e únicos do seu negócio.",
+      features: [
+        "Sistemas web acessíveis de qualquer dispositivo",
+        "Automação de fluxos de trabalho e controle operacional",
+        "Relatórios gerenciais em tempo real",
+        "Suporte e evolução contínua do sistema"
+      ],
+      whatsappMsg: "Olá! Vim pelo site e gostaria de um orçamento para Sistema Sob Medida."
+    },
+    cameras: {
+      title: "Câmeras Analógicas e IP",
+      eyebrow: "SEGURANÇA ELETRÔNICA",
+      icon: "📷",
+      image: "",
+      alt: "Câmeras de Segurança",
+      description: "Instalação e manutenção de sistemas de monitoramento por vídeo (CFTV) em alta definição para residências, condomínios e empresas.",
+      features: [
+        "Câmeras IP com resolução Full HD e 4K com visão noturna",
+        "Acesso e visualização em tempo real pelo celular",
+        "Gravação contínua em DVR / NVR com armazenamento em nuvem",
+        "Detecção de movimento e alertas inteligentes"
+      ],
+      whatsappMsg: "Olá! Vim pelo site e gostaria de um orçamento para Sistema de Câmeras."
+    },
+    alarmes: {
+      title: "Alarmes e Incêndio",
+      eyebrow: "SEGURANÇA ELETRÔNICA",
+      icon: "🚨",
+      image: "",
+      alt: "Alarmes e Incêndio",
+      description: "Sistemas de alarme contra intrusão e detecção preventiva de incêndio com alerta imediato para proteger seu patrimônio.",
+      features: [
+        "Sensores de presença infravermelho e barreira física",
+        "Central de alarme monitorada via aplicativo móvel",
+        "Detectores de fumaça e temperatura endereçáveis",
+        "Sirenes de alta potência e acionamento remoto"
+      ],
+      whatsappMsg: "Olá! Vim pelo site e gostaria de um orçamento para Alarmes e Incêndio."
+    },
+    acesso: {
+      title: "Controle de Acesso",
+      eyebrow: "SEGURANÇA ELETRÔNICA",
+      icon: "🔐",
+      image: "",
+      alt: "Controle de Acesso",
+      description: "Gerenciamento inteligente de fluxo de pedestres e veículos com tecnologia de ponta em biometria, cartão de proximidade e reconhecimento facial.",
+      features: [
+        "Leitores faciais, biométricos e senhas numéricas",
+        "Catracas, cancelas e fechaduras eletroímã",
+        "Relatórios completos de horários de entrada e saída",
+        "Integração com sistemas de portaria virtual"
+      ],
+      whatsappMsg: "Olá! Vim pelo site e gostaria de um orçamento para Controle de Acesso."
+    },
+    portoes: {
+      title: "Portões Basculantes e Deslizantes",
+      eyebrow: "AUTOMAÇÃO",
+      icon: "🚧",
+      image: "",
+      alt: "Automação de Portões",
+      description: "Automação de portões de todos os portes com motores ultra rápidos para garantir conforto e agilidade no acesso ao imóvel.",
+      features: [
+        "Motores rápidos com abertura em poucos segundos",
+        "Controles remotos anticlonagem e acionamento via smartphone",
+        "Travas eletromagnéticas e fotocélulas de segurança antiesmagamento",
+        "Manutenção preventiva e troca de placas de comando"
+      ],
+      whatsappMsg: "Olá! Vim pelo site e gostaria de um orçamento para Automação de Portões."
+    },
+    portas: {
+      title: "Portas Residenciais e Comerciais",
+      eyebrow: "AUTOMAÇÃO",
+      icon: "🏠",
+      image: "",
+      alt: "Automação de Portas",
+      description: "Sistemas automatizados para portas sociais de vidro, comerciais e residenciais, garantindo acessibilidade, elegância e segurança.",
+      features: [
+        "Sensoriamento de presença por radarcópio ou infravermelho",
+        "Sistemas para portas de enrolar comerciais automatizadas",
+        "Abertura suave e silenciosa para alto tráfego",
+        "Nobreak integrado para funcionamento na falta de energia"
+      ],
+      whatsappMsg: "Olá! Vim pelo site e gostaria de um orçamento para Automação de Portas."
+    }
+  };
+
+  const modalOverlay = document.getElementById('serviceModal');
+  const modalClose = document.getElementById('modalClose');
+  const modalCloseBtn = document.getElementById('modalCloseBtn');
+  const modalBackdrop = modalOverlay.querySelector('.modal-backdrop');
+
+  const modalTitle = document.getElementById('modalTitle');
+  const modalEyebrow = document.getElementById('modalEyebrow');
+  const modalIcon = document.getElementById('modalIcon');
+  const modalImage = document.getElementById('modalImage');
+  const modalImgContainer = modalOverlay.querySelector('.modal-img-container');
+  const modalDescription = document.getElementById('modalDescription');
+  const modalFeatures = document.getElementById('modalFeatures');
+  const modalWhatsappBtn = document.getElementById('modalWhatsappBtn');
+
+  function openModal(serviceKey) {
+    const data = servicesData[serviceKey];
+    if (!data) return;
+
+    modalTitle.textContent = data.title;
+    modalEyebrow.textContent = data.eyebrow || 'SERVIÇO ESPECIALIZADO';
+    modalIcon.textContent = data.icon || '🛠️';
+    modalDescription.textContent = data.description;
+
+    if (data.image) {
+      modalImage.src = data.image;
+      modalImage.alt = data.alt || data.title;
+      modalImgContainer.style.display = 'block';
+    } else {
+      modalImgContainer.style.display = 'none';
+    }
+
+    modalFeatures.innerHTML = '';
+    if (data.features && data.features.length) {
+      data.features.forEach(feat => {
+        const li = document.createElement('li');
+        li.textContent = feat;
+        modalFeatures.appendChild(li);
+      });
+    }
+
+    const encodedMsg = encodeURIComponent(data.whatsappMsg || `Olá! Gostaria de um orçamento para ${data.title}`);
+    modalWhatsappBtn.href = `https://wa.me/5519981389982?text=${encodedMsg}`;
+
+    modalOverlay.classList.add('active');
+    modalOverlay.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+  }
+
+  function closeModal() {
+    modalOverlay.classList.remove('active');
+    modalOverlay.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+  }
+
+  document.querySelectorAll('.service[data-service]').forEach(card => {
+    card.addEventListener('click', () => {
+      const key = card.getAttribute('data-service');
+      openModal(key);
+    });
+
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const key = card.getAttribute('data-service');
+        openModal(key);
+      }
+    });
+  });
+
+  modalClose.addEventListener('click', closeModal);
+  modalCloseBtn.addEventListener('click', closeModal);
+  modalBackdrop.addEventListener('click', closeModal);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+      closeModal();
+    }
   });
 </script>
 
